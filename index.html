@@ -773,11 +773,6 @@ document.addEventListener('mousemove', e => {
       ctx.clearRect(0, 0, size, size);
       ctx.save();
 
-      /* clip to circle — removes white corners from non-transparent PNGs */
-      ctx.beginPath();
-      ctx.arc(cx, cy + bob, cx * 0.88, 0, Math.PI * 2);
-      ctx.clip();
-
       /* apply Y-axis rotation via horizontal scale + slight perspective squish */
       ctx.translate(cx, cy + bob);
       ctx.scale(scaleX * gem.scale, gem.scale * (0.92 + absX * 0.08));
@@ -795,14 +790,6 @@ document.addEventListener('mousemove', e => {
 
       ctx.restore();
 
-      /* subtle edge highlight on the lit side */
-      ctx.save();
-      ctx.beginPath();
-      ctx.arc(cx, cy + bob, cx * 0.88, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(0,240,255,${0.08 + absX * 0.12})`;
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
-      ctx.restore();
     });
   }
   requestAnimationFrame(tick);
