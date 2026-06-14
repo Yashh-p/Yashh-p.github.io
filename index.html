@@ -167,182 +167,23 @@ section { position: relative; z-index: 1; min-height: 100vh; display: flex; alig
 /* ── SKILL CATEGORIES ── */
 .skill-category { margin-bottom: 3.5rem; }
 .skill-category:last-child { margin-bottom: 0; }
-.cat-header {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  margin-bottom: 1.8rem;
-  padding-bottom: 0.8rem;
-  border-bottom: 1px solid var(--border);
-}
-.cat-icon { font-size: 1.1rem; }
-.cat-title {
-  font-size: 0.65rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--accent);
-  font-family: var(--font-mono);
-}
-.cat-line {
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(to right, var(--border), transparent);
-}
+.cat-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.8rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--border); }
+.cat-icon  { font-size: 1.1rem; }
+.cat-title { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); font-family: var(--font-mono); }
+.cat-line  { flex: 1; height: 1px; background: linear-gradient(to right, var(--border), transparent); }
 
-/* ── OCTAGONAL GEM GRID ── */
-.oct-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem 2.5rem;
-  align-items: flex-start;
+/* ── GEM GRID ── */
+.oct-grid { display: flex; flex-wrap: wrap; gap: 1.8rem 2.2rem; }
+.oct-item  { display: flex; flex-direction: column; align-items: center; gap: 0.65rem; cursor: default; }
+.gem-canvas {
+  width: 110px; height: 110px;
+  display: block;
+  transition: transform 0.3s, filter 0.3s;
 }
-.oct-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
-  cursor: default;
+.oct-item:hover .gem-canvas {
+  filter: drop-shadow(0 0 12px rgba(0,240,255,0.6));
 }
-
-/* The 3D spinning octagon — pure CSS, zero WebGL contexts */
-.oct-scene {
-  width: 96px;
-  height: 96px;
-  perspective: 320px;
-}
-.oct-spinner {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transform-style: preserve-3d;
-  animation: octSpin 6s linear infinite;
-}
-.oct-item:hover .oct-spinner {
-  animation-duration: 1.8s;
-}
-@keyframes octSpin {
-  from { transform: rotateX(18deg) rotateY(0deg); }
-  to   { transform: rotateX(18deg) rotateY(360deg); }
-}
-
-/* Face = octagon via clip-path */
-.oct-face {
-  position: absolute;
-  inset: 0;
-  clip-path: polygon(
-    30% 0%, 70% 0%,
-    100% 30%, 100% 70%,
-    70% 100%, 30% 100%,
-    0% 70%, 0% 30%
-  );
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  backface-visibility: hidden;
-}
-/* Front face — slightly lighter */
-.oct-front {
-  background: linear-gradient(145deg, #c8d4e0 0%, #8fa0b4 40%, #6a7e94 100%);
-  box-shadow: inset 0 0 18px rgba(255,255,255,0.18), inset 0 -4px 12px rgba(0,0,0,0.3);
-  transform: translateZ(8px);
-}
-/* Back face */
-.oct-back {
-  background: linear-gradient(145deg, #4a5a6a 0%, #2e3d4e 100%);
-  transform: rotateY(180deg) translateZ(8px);
-}
-/* Side rim — thin extruded depth */
-.oct-rim {
-  position: absolute;
-  inset: 0;
-  clip-path: polygon(
-    30% 0%, 70% 0%,
-    100% 30%, 100% 70%,
-    70% 100%, 30% 100%,
-    0% 70%, 0% 30%
-  );
-  background: linear-gradient(to bottom,
-    rgba(255,255,255,0.25) 0%,
-    rgba(100,130,160,0.6) 40%,
-    rgba(30,40,55,0.8) 100%
-  );
-  transform: translateZ(0px) scaleZ(1);
-  box-shadow: 0 0 0 2px rgba(0,240,255,0.18);
-}
-/* Glint highlight — top-left bright catch light */
-.oct-glint {
-  position: absolute;
-  top: 10%; left: 12%;
-  width: 28%;
-  height: 22%;
-  background: linear-gradient(135deg, rgba(255,255,255,0.55) 0%, transparent 100%);
-  clip-path: polygon(0 0, 100% 0, 60% 100%, 0 70%);
-  pointer-events: none;
-  z-index: 3;
-  transform: translateZ(9px);
-  backface-visibility: hidden;
-}
-/* Hover glow ring */
-.oct-scene::after {
-  content: '';
-  position: absolute;
-  inset: -4px;
-  clip-path: polygon(
-    30% 0%, 70% 0%,
-    100% 30%, 100% 70%,
-    70% 100%, 30% 100%,
-    0% 70%, 0% 30%
-  );
-  background: transparent;
-  border: 1.5px solid rgba(0,240,255,0);
-  border-radius: 2px;
-  transition: border-color 0.3s, box-shadow 0.3s;
-  pointer-events: none;
-}
-.oct-item:hover .oct-scene::after {
-  border-color: rgba(0,240,255,0.5);
-}
-
-/* Logo on front face */
-.oct-logo {
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  z-index: 2;
-  position: relative;
-  transform: translateZ(1px);
-  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.6));
-}
-.oct-logo svg {
-  width: 42px;
-  height: 42px;
-}
-.oct-text-logo {
-  font-family: var(--font-head);
-  font-size: 0.68rem;
-  font-weight: 800;
-  color: #fff;
-  text-align: center;
-  line-height: 1.25;
-  letter-spacing: 0.02em;
-  text-shadow: 0 1px 4px rgba(0,0,0,0.8);
-  pointer-events: none;
-  padding: 0 6px;
-}
-
-.oct-label {
-  font-size: 0.63rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  text-align: center;
-  transition: color 0.3s;
-  max-width: 92px;
-  line-height: 1.3;
-}
+.oct-label { font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-align: center; transition: color 0.3s; max-width: 96px; line-height: 1.3; }
 .oct-item:hover .oct-label { color: var(--accent); }
 
 #experience .inner { max-width: 900px; width: 100%; }
@@ -745,177 +586,191 @@ document.addEventListener('mousemove', e => {
   });
 });
 
-/* ── CSS 3D OCTAGONAL SKILL ICONS (zero WebGL contexts, inline SVG icons) ── */
+/* ── SHARED THREE.JS GEM RENDERER — one WebGL context, all gems ── */
 (function () {
 
-  /* All icons are inline SVG — no external requests, no CORS, works on any host */
-  const SVG = {
-    python: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><linearGradient id="py1" x1="70.252" x2="170.659" y1="1237.476" y2="1151.089" gradientTransform="matrix(.563 0 0 -.568 -29.15 707.817)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5a9fd4"/><stop offset="1" stop-color="#306998"/></linearGradient><linearGradient id="py2" x1="209.474" x2="173.62" y1="1098.811" y2="1149.537" gradientTransform="matrix(.563 0 0 -.568 -29.15 707.817)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffd43b"/><stop offset="1" stop-color="#ffe873"/></linearGradient><path fill="url(#py1)" d="M63.391 1.988c-4.222.02-8.252.379-11.8 1.007-10.45 1.846-12.346 5.71-12.346 12.837v9.411h24.693v3.137H29.977c-7.176 0-13.46 4.313-15.426 12.521-2.268 9.405-2.368 15.275 0 25.096 1.755 7.311 5.947 12.519 13.124 12.519h8.491V67.234c0-8.151 7.051-15.34 15.426-15.34h24.665c6.866 0 12.346-5.654 12.346-12.548V15.833c0-6.693-5.646-11.72-12.346-12.837-4.244-.706-8.645-1.027-12.866-1.008zM50.037 9.557c2.55 0 4.634 2.117 4.634 4.721 0 2.593-2.083 4.69-4.634 4.69-2.56 0-4.633-2.097-4.633-4.69-.001-2.604 2.073-4.721 4.633-4.721z"/><path fill="url(#py2)" d="M91.682 28.38v10.966c0 8.5-7.208 15.655-15.426 15.655H51.591c-6.756 0-12.346 5.783-12.346 12.549v23.515c0 6.691 5.818 10.628 12.346 12.547 7.816 2.297 15.312 2.713 24.665 0 6.216-1.801 12.346-5.423 12.346-12.547v-9.412H63.938v-3.138h37.012c7.176 0 9.852-5.005 12.348-12.519 2.578-7.735 2.467-15.174 0-25.096-1.774-7.145-5.161-12.521-12.348-12.521h-9.268zM77.809 87.927c2.561 0 4.634 2.097 4.634 4.692 0 2.602-2.074 4.719-4.634 4.719-2.55 0-4.633-2.117-4.633-4.719 0-2.595 2.083-4.692 4.633-4.692z"/></svg>`,
-    html5: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><path fill="#E44D26" d="M19.037 113.876L9.032 1.661h109.936l-10.016 112.198-45.019 12.48z"/><path fill="#F16529" d="M64 116.8l36.378-10.086 8.559-95.878H64z"/><path fill="#EBEBEB" d="M64 52.455H45.788L44.53 38.361H64V24.599H29.489l.33 3.692 3.382 37.927H64zm0 35.743l-.061.017-15.327-4.14-.979-10.975H33.816l1.928 21.609 28.193 7.826.063-.017z"/><path fill="#fff" d="M63.952 52.455v13.763h16.947l-1.597 17.849-15.35 4.143v14.319l28.215-7.82.207-2.325 3.234-36.233.335-3.696h-3.708zm0-27.856v13.762h33.244l.276-3.092.628-6.978.329-3.692z"/></svg>`,
-    postgresql: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><path fill="#336791" d="M93.809 92.112c.785-6.533.55-7.492 5.416-6.433l1.235.108c3.742.17 8.637-.602 11.513-1.938 6.191-2.873 9.861-7.668 3.758-6.409-13.924 2.873-14.881-1.842-14.881-1.842 14.703-21.815 20.849-49.508 15.543-56.287-14.47-18.489-39.517-9.746-39.936-9.52l-.134.025c-2.751-.571-5.83-.912-9.289-.968-6.301-.104-11.082 1.652-14.709 4.402 0 0-44.683-18.409-42.604 23.151.442 8.841 12.672 66.898 27.26 49.362 5.332-6.412 10.484-11.834 10.484-11.834 2.558 1.699 5.622 2.567 8.834 2.255l.249-.212c-.078.796-.044 1.575.099 2.497-3.757 4.199-2.653 4.936-10.166 6.482-7.602 1.566-3.136 4.355-.221 5.084 3.535.884 11.712 2.136 17.238-5.598l-.22.882c1.474 1.18 1.375 8.477 1.583 13.69.209 5.214.558 10.079 1.621 12.948 1.063 2.868 2.317 10.256 12.191 8.14 8.252-1.764 14.561-4.309 15.208-27.931"/><path fill="#fff" d="M75.94 7.318c1.026.13 1.858.29 2.568.44-.905.283-1.811.65-2.719 1.102-5.963 3.028-8.953 7.611-8.953 7.611-4.916-2.013-9.851-2.551-14.384-1.803-3.512.575-6.54 1.863-8.963 3.458-3.344 2.199-6.285 4.963-8.855 8.258-6.558 8.444-12.35 22.33-15.116 38.22-1.908 10.871-2.228 21.45-.613 30.047a45.693 45.693 0 001.558 6.311l-5.96 7.073c-2.33 2.802-4.528 7.923-6.376 14.418-1.947 6.842-3.32 14.979-3.891 22.805-.626 8.612-.203 17.144 1.379 24.077 1.587 6.95 4.378 11.971 8.158 13.586 1.743.75 3.553.886 5.389.415 2.254-.574 4.59-2.116 6.817-4.652 2.186-2.487 4.266-5.952 6.037-10.364 3.549-8.889 5.878-21.044 6.086-36.143l.002-.156v-.147c0-.044.003-.125.003-.178l-.049.048c.133-.97.268-1.94.403-2.908l.248-.008 1.783-.1c4.082-.247 7.376-.947 10.012-1.994l-.027.013.199-.086c.256-.116.479-.22.726-.344l.076-.04c.002 2.434.066 4.982.201 7.487.243 4.538.737 9.116 1.805 13.04 1.065 3.917 2.849 7.076 5.763 8.45 1.11.52 2.37.754 3.764.697 1.953-.079 4.155-.794 6.526-2.146 4.733-2.728 9.562-8.299 12.854-17.395 1.59-4.373 2.774-9.506 3.409-15.371.428-3.929.563-8.181.431-12.641a118.25 118.25 0 00-.048-2.063c3.093-1.439 5.849-3.428 8.177-5.896.035 1.035.06 2.11.048 3.244-.155 13.42.891 23.376 3.087 30.15 1.095 3.381 2.513 5.891 4.214 7.508 1.548 1.468 3.391 2.234 5.455 2.257 1.601.015 3.319-.38 5.098-1.16 3.814-1.699 7.42-5.434 9.899-10.99 2.479-5.551 3.868-12.943 3.6-21.843-.09-2.998-.377-5.979-.863-8.95 1.003-.638 1.895-1.337 2.656-2.086 2.543-2.474 3.658-5.081 4.054-7.449.405-2.399.028-4.601-.646-6.459-.667-1.844-1.629-3.363-2.465-4.477a13.6 13.6 0 00-.742-.899l-.095-.099c.152-1.7.274-3.442.36-5.228.469-9.674-1.16-22.068-7.163-32.282C99.212 11.842 88.03 5.269 75.94 7.318z"/><path fill="#336791" d="M103.196 49.915c-.266 2.414-1.064 4.695-1.872 7.159l-.085.258c-.5 1.524-.966 3.128-1.346 4.836-2.208.428-4.22.465-5.996.046a64.02 64.02 0 00-4.479-11.497c5.413-1.061 10.312-1.247 13.778-.802zm-61.48-2.104c-.285 1.284-.519 2.598-.692 3.945l-.173 1.297c-.347 2.742-.479 5.614-.363 8.581a44.5 44.5 0 00.199 3.094c-2.132-.401-4.174-1.058-6.054-2.007a74.698 74.698 0 01-3.527-8.604l-.063-.21c-.43-1.461-.786-2.89-1.075-4.28 3.185-.498 6.928-.461 11.748.184zm34.26-25.558c3.415 3.544 5.597 7.947 6.841 12.517.524 1.925.874 3.893 1.069 5.866-1.636.237-3.352.547-5.145.944-2.853.63-5.493 1.416-7.863 2.293a60.08 60.08 0 00-3.463-7.083c-1.699-2.934-3.673-5.649-6.001-7.757 2.24-.865 4.658-1.436 7.253-1.561a22.256 22.256 0 017.309.781zm-27.46-.85c4.091.112 8.081 1.297 11.619 3.47 2.766 2.063 5.042 4.793 6.942 7.86a56.498 56.498 0 013.251 6.663c-3.178 1.348-6.193 3.027-8.85 5.032-2.494 1.882-4.562 3.957-6.094 6.155a59.413 59.413 0 00-5.131-5.716c-2.928-2.783-6.085-5.052-9.231-6.671-.213-.11-.421-.211-.633-.313a39.74 39.74 0 015.127-16.48z"/><path fill="#fff" d="M44.181 67.146c.855 3.359 2.007 6.546 3.535 9.355 1.698 3.109 3.834 5.703 6.48 7.406-3.082.917-7.18 1.333-12.31.985a40.258 40.258 0 01-1.743-.145c-.491-2.648-.762-5.749-.757-9.225.003-2.026.101-4.131.296-6.29a36.543 36.543 0 004.499-2.086zm39.278-2.024c.82 2.947 1.439 6.03 1.743 9.214.258 2.697.3 5.42.116 8.065-2.049 1.116-4.341 1.961-6.917 2.429-2.543.463-5.373.563-8.517.227 2.079-2.219 3.735-4.938 4.97-7.911 1.097-2.641 1.843-5.508 2.271-8.445a53.9 53.9 0 006.334-3.579zm-19.617 6.24c-1.19 2.86-2.736 5.41-4.63 7.434a21.527 21.527 0 01-2.18 2.033c-1.523-1.358-2.859-3.183-3.985-5.436a38.34 38.34 0 01-2.443-7.135 25.573 25.573 0 013.858-2.489 28.14 28.14 0 015.447-2.109 47.28 47.28 0 003.933 7.702zm-8.218-12.648c1.694-2.352 3.902-4.482 6.647-6.162 2.466-1.518 5.264-2.625 8.25-3.227.698 1.974 1.356 4.023 1.941 6.148.574 2.09 1.055 4.239 1.437 6.416a31.14 31.14 0 00-5.684 2.369 28.894 28.894 0 00-4.376 3.186c-1.121-2.364-2.357-4.63-3.711-6.755a50.06 50.06 0 00-4.504-1.975z"/></svg>`,
-    mysql: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><path fill="#00618A" d="M2 74.3v8.8h2.8V75h1.9l4.3 8.1h3.1l-4.6-8.4c2.1-.6 3.5-2.1 3.5-4.2 0-2.8-2-4.2-5.3-4.2H2zm2.8 2.3h1.9c1.7 0 2.6.7 2.6 2.1 0 1.4-1 2.1-2.7 2.1H4.8v-4.2zM19.5 66.3l-4.9 16.8h2.9l1.3-4.6h5.1l1.3 4.6h3l-4.9-16.8h-3.8zm-.1 9.8l1.9-6.8h.1l1.9 6.8h-3.9zM35.2 66.3h-2.8v16.8h10.1V80.6h-7.3V66.3zM50 66.3h-2.8v16.8h10.1V80.6H50V66.3zM65.9 66.3h-3.8L57.2 83.1h3l1.3-4.6H66.6l1.3 4.6h3l-4.9-16.8h-.1zm-3.2 9.8l1.9-6.8h.1l1.9 6.8h-3.9z"/><path fill="#E48E00" d="M126 20.1c-8.7-.2-15.4 .7-21.1 3.1-1.6.7-4.2.7-4.4 2.7.9.9.9 2.3 1.6 3.5 1.2 2 3.3 4.7 5.2 6.1 2.1 1.6 4.2 3.2 6.4 4.6 3.9 2.4 8.3 3.8 12.1 6.3 2.2 1.4 4.4 3.2 6.6 4.7 1.1.8 1.8 2 3.1 2.5v-.3c-.7-.9-.9-2.1-1.5-3.1l-2.8-2.8c-2.8-3.7-6.3-6.9-10.1-9.5-3-2.1-9.7-5-11-8.6l-.2-.2c2.1-.2 4.6-1 6.7-1.5 3.3-.9 6.3-.7 9.7-1.6l4.6-1.3v-.9c-1.7-1.7-2.9-4-4.7-5.6-4.8-4.1-10-8.1-15.4-11.4-3-1.8-6.6-3-9.7-4.5-.9-.5-2.7-.7-3.3-1.5-1.5-1.9-2.4-4.3-3.5-6.5-2.5-4.7-4.9-9.9-7.1-14.9-1.5-3.3-2.5-6.7-4.4-9.7-9-14.9-18.7-23.9-33.7-32.8-3.2-1.9-7-2.6-11-3.5-2.2-.1-4.4-.2-6.5-.3-1.3-.6-2.7-2.3-3.9-3.1-4.9-3.1-17.4-9.9-21-1-.9 2.3.3 5.7 1.3 7.7 .7 1.3 1.4 2.9 2.4 3.9.4.4 1.7 1.5 1.8 2.2-.3 0-.4.3-.5.5-2.4 5.5.2 11.5 2.1 15.4.7 1.4 2.2 4.1 3.7 5.6.4.4 1.2.8 1.2 1.5-2 2.3-2.1 8.3-.4 11 1.1 1.7 2.3 3.6 3.9 4.7.8.5 1.8 1.8 2.3 1.8-.5 2.3-2 4.3-2.3 6.6-.8 5.3.2 11.2 2.2 15.4l.2.5c1.3 3.2 3.2 6.6 5.8 8.8 4.8 4.1 8.1 5.1 15.2 8.1 2.5 1 6 1.6 8.2 2.9.5.3 1 .7 1.5 1 1 .8 2 1.8 3 2.7 2.7 2.4 5.6 5.1 7.7 8 1.1 1.5 1.9 3.1 2.9 4.7.9 1.5 1.3 3.3 2.7 4.4v-.2c-.6-.8-.8-2-.3-3 .4-1 .8-2.5 1.2-3.5.5-1.2.6-2.6 1.4-3.7l.2.2c.8 1.6 1.2 3.5 1.8 5.2 1.3 4.1 2.5 7.8 3.9 11.8.8 2.3 1.8 4.8 3.2 6.9.6.9 1.5 1.8 2.1 2.7-1.2-2-2.4-3.9-3.1-6.1-.5-1.3-1-2.7-1.4-4-1-3-1.9-5.9-2.9-8.9-.5-1.4-1-2.8-1.4-4.2-.3-.9-1.4-1.9-1.2-2.9.2-.8.7-1.3 1-2 .4-1 1-2.3 1.2-3.3.9 1.2 1.3 2.9 2 4.3l.5.5v-.7c-.3-.8-.5-1.6-.8-2.4-1.2-3.2-2.9-6.3-4.7-9.1-1-1.4-2.4-2.5-3.5-3.8-1-1.2-2.1-2.4-3.1-3.6-2.9-3.3-5.4-7.2-8.5-10.1-3.1-2.8-7.2-4.6-11.2-6.2-1.1-.4-2.8-1.3-4-.9l-.7-.7c-1.7-1.9-2.5-4.9-3.5-7.2-.8-1.8-1.5-3.6-2.2-5.4-.2-.5-.5-2-.9-2.2l-.4.4c-.4 1.2-.7 2.5-.9 3.9-.2 1-.3 2-.4 3 .2-5.3 1.3-11 2.9-16.5l.9-2.9-.4-.5c-.4.2-.8.3-1.1.6-1.7 1.3-2.4 3.5-3 5.2-.4 1.2-.8 2.5-1 3.8-1.1-4.1-1.2-8.7-.9-13 .2-1.6.7-4.5-.7-5.9.4-.5.8-1 1.1-1.4 2.5 1.2 4.9 2.5 7.3 3.9 2.1 1.3 4.3 2.5 6.3 3.9.7.5 1.6 1.3 2.5 1.5h1.1c2 .4 4.3-.4 6.2-.6 2.4-.3 5-.3 7.4-.7 4.5-.8 8.8-2.2 12.6-4.3 11.6-6.3 20.3-15.5 26.1-27.5.8-1.7 1.6-3.5 2.2-5.3.3-.9.4-1.8.7-2.6.7-1.7 1.9-3.4 2.8-5 1.2-2.1 2.4-4.1 3.5-6.3.7-1.4 1.1-3.2 2.2-4.2v.2c-.7 1.3-1 2.8-1.4 4.2-.3 1-.8 2-.5 3.1h.2c1.3-2.5 2.1-5.3 3-7.9.8-2.3 1.6-5.3 1-7.8l-.2-.4v-.2c-1.6-.2-3.4.7-4.8 1.4-1 .5-2 1.1-3 1.7-1.2.7-2.7 1.1-3.8 2-3.7 3-6.9 7.1-9.2 11.2-1.2 2.2-2.2 4.6-3.2 6.8-.9 1.9-2.2 3.5-2.9 5.5-1.2 3.2-1.4 6.6-2.5 9.8-1.8 5.3-4.8 10.3-8 14.7-2.6 3.6-5.4 7.3-8.7 10.1-1.4 1.2-2.7 2.4-4.1 3.5 0-8.2 5.6-14.4 9-21.5 1.8-3.8 2.8-7.9 4.7-11.5.8-1.4 1.7-2.8 2.5-4.1.5-.8 1.3-1.5 1.6-2.4-.1-.2-.1-.5-.2-.7-2.6 1.8-5.1 3.7-7.5 5.7-4.9 4.1-8.8 9.2-11.4 15.2-2.5 5.8-3.5 12.3-5.4 18.3l-.2.7c-.5-5.2.4-11 1.7-16.2.7-2.9 2.5-5.7 3.7-8.2.9-1.7 2.2-3.2 3.1-4.8.5-.8.9-1.6 1.3-2.4-2.7 2-5.5 4.5-7.7 7.1-4.3 5.1-7.1 11.6-9 18.4-1.1 3.9-1.6 7.9-2.3 11.9-1 6-.9 12.5.2 18.4.4 1.8.8 3.6 1.3 5.4.5 1.8 1.3 3.5 1.8 5.3.9 3 1.5 6.2 3 8.9 3.1 5.6 7.2 10.7 12.2 14.4 1.8 1.3 3.7 2.7 5.7 3.7 1.1.5 2.3.9 3.3 1.5 1 .5 1.9 1.1 2.9 1.6 2.4 1.2 5.2 1.9 7.4 3.3 3.8 2.4 7.1 5.7 10.2 8.8 1.6 1.6 3.1 3.4 4.4 5.2 1.2 1.7 2 3.8 3.6 5.1v-.2c-.5-1.4-1-2.8-1.8-4-.7-1.4-1.5-2.6-2.3-3.9-2.3-3.5-4.9-6.5-7.8-9.3-1.9-1.8-4-3.5-5.9-5.4-.9-.9-1.8-1.9-2.5-2.8 4.2 1.8 8.5 4 11.9 7.1 1.9 1.7 3.7 3.7 5.4 5.6 1.7 1.8 3.3 3.9 5.2 5.5v-.2c-2.5-2.9-4.4-6.3-6.8-9.2-2.2-2.8-4.8-5.4-7.4-7.8-3.2-2.9-6.8-5.4-10.3-7.8-2-1.3-4.3-2.1-6.3-3.3-1-.6-1.9-1.4-2.8-2l-1.1-1c-1.5-1.3-3.1-2.7-4.4-4.2-2.3-2.8-3.9-6.1-5.2-9.7-.5-1.5-.9-3.2-1.2-4.8-.3-1.6-.4-3.4-.9-5 .1 5.1.6 10.3 2 15.2.7 2.5 1.7 5 2.9 7.2.6 1.2 1.4 2.3 2.1 3.5.7 1.2 1.5 2.5 2.4 3.6 2.4 2.9 5.3 5.5 8.4 7.7 1.9 1.3 3.9 2.7 5.9 3.9 1.9 1.2 4 2.3 5.9 3.6 3.5 2.4 6.8 5.1 9.7 8.2 1.5 1.6 2.9 3.3 4.1 5.2l1.2 2.5.7 2.5c.2.7.3 1.3.2 2-.2 1.1-.9 2.3-1.4 3.4l-.2.3c-.5 1-.8 2.1-1.3 3.1-1.1 2.5-2.3 5.2-3.9 7.4-2.5 3.5-5.5 6.4-9.1 8.4-1.7.9-3.6 1.7-5.5 2.3-.9.3-1.9.6-2.9.7-1.2.1-2.7-.1-3.7-.8-3.3-2.3-4.7-7.1-6.1-10.8-.7-2-1.4-4.1-2-6.2-.6-1.9-.9-3.9-2.2-5.5 0 .3.1.6.1.9.5 3.2 1.2 6.4 1.9 9.6.3 1.5.7 3.1 1.1 4.6.2.9.7 2.1.5 3.1-2.4-2.3-3.6-5.7-5-8.6-1.6-3.5-3.2-7.1-4.5-10.7-1.2-3.4-2.2-6.8-3.1-10.3-.9-3.3-1.6-6.7-2.3-10.1-.7-3.6-1.1-7.3-1.4-11-.3-3.7-.3-7.4-.1-11 .2-3.3.6-6.8 1.2-10.1.6-3.2 1.3-6.4 2.3-9.5 1-3.1 2.3-6.1 3.7-9.1 1.3-2.9 2.8-5.8 4.5-8.5 1.7-2.6 3.5-5.1 5.5-7.5 2-2.4 4.1-4.6 6.3-6.8 2.2-2.2 4.6-4.2 7.1-6.1 2.5-1.9 5.1-3.7 7.8-5.2 2.7-1.6 5.6-3 8.5-4.2 2.9-1.2 5.9-2.3 8.9-3.1 3.1-.8 6.2-1.4 9.3-1.7 2.4-.3 4.8-.4 7.2-.3l3.5.2 3.5.6c1.2.2 2.3.6 3.4.9 1.1.3 2.2.8 3.3 1.2 4.3 1.8 8.3 4.4 11.7 7.7 1.7 1.6 3.2 3.4 4.6 5.3 1.4 1.9 2.7 3.8 3.9 5.8 2.4 4 4.4 8.2 6.2 12.6 1.8 4.4 3.3 8.9 4.7 13.5l.7 3.4.5 3.5v3.7c0 1.2-.1 2.5-.2 3.7-.2 2.5-.7 4.9-1.4 7.3-.7 2.3-1.7 4.6-2.8 6.8-1.2 2.2-2.5 4.3-3.9 6.3-1.5 2-3.1 3.9-4.9 5.7-1.8 1.7-3.7 3.4-5.8 4.8-2.1 1.5-4.3 2.8-6.5 3.9-2.3 1.1-4.7 2-7.1 2.7-2.5.7-5 1.2-7.6 1.5l-1.9.2-1.9.1h-1.9c-.6 0-1.3-.1-1.9-.1-1.3-.1-2.5-.4-3.7-.7-1.2-.3-2.4-.7-3.5-1.2-1.1-.5-2.2-1.1-3.2-1.7-2-1.3-3.8-2.9-5.3-4.8-1.5-1.9-2.8-3.9-3.9-6.1-1.1-2.1-2-4.4-2.8-6.7-.8-2.3-1.4-4.6-1.9-7-.5-2.4-.9-4.8-1.1-7.2-.2-2.4-.3-4.9-.2-7.3 0-2.4.2-4.8.5-7.2.3-2.3.8-4.7 1.3-7 .5-2.2 1.1-4.5 1.8-6.7.7-2.2 1.5-4.3 2.4-6.4.9-2.1 1.9-4.2 2.9-6.2 1.1-2 2.2-3.9 3.5-5.8 1.2-1.8 2.6-3.6 4-5.3 1.4-1.7 2.9-3.4 4.4-5 1.6-1.6 3.2-3.1 4.9-4.6 1.7-1.5 3.5-2.8 5.4-4.1 1.9-1.3 3.8-2.5 5.8-3.5 2-.9 4.1-1.8 6.3-2.5 2.2-.7 4.4-1.3 6.6-1.7 2.3-.4 4.6-.7 7-.7 2.4 0 4.7.1 7 .5 2.3.4 4.6.9 6.8 1.6 2.2.7 4.4 1.6 6.5 2.7 2.1 1.1 4.1 2.4 6 3.8 1.9 1.4 3.7 3 5.4 4.7 1.7 1.7 3.2 3.5 4.6 5.5 1.4 1.9 2.7 4 3.8 6.1 1.1 2.1 2.1 4.3 2.9 6.6.8 2.3 1.4 4.6 1.9 7 .5 2.4.7 4.8.8 7.2v3.7l-.2 3.7c-.1 1.2-.3 2.5-.5 3.7-.4 2.4-.9 4.8-1.7 7.1-.8 2.3-1.7 4.5-2.9 6.7-1.1 2.1-2.4 4.2-3.9 6.1-1.5 1.9-3 3.8-4.7 5.5-1.7 1.7-3.5 3.3-5.5 4.7-2 1.4-4 2.7-6.1 3.7-2.2 1.1-4.4 1.9-6.7 2.6-2.3.7-4.7 1.1-7.1 1.4l-3.6.2-3.6-.1c-1.2-.1-2.4-.3-3.5-.5-1.2-.2-2.3-.5-3.4-.9-1.1-.4-2.2-.8-3.2-1.3-1-.5-2-1.2-2.9-1.8-1.8-1.3-3.4-2.9-4.9-4.7-1.4-1.7-2.7-3.6-3.8-5.6-1.1-2-2-4.1-2.8-6.2-.8-2.1-1.4-4.3-1.9-6.5-.5-2.2-.8-4.5-.9-6.8-.2-2.3-.1-4.7 0-7 .2-2.3.5-4.7 1-7 .5-2.3 1.1-4.5 1.9-6.7.8-2.2 1.7-4.3 2.8-6.4 1.1-2 2.3-4 3.7-5.9 1.4-1.9 2.8-3.7 4.4-5.4 1.6-1.7 3.3-3.3 5.1-4.8 1.8-1.5 3.7-2.8 5.7-4 2-1.2 4-2.2 6.2-3.1 2.2-.9 4.4-1.6 6.6-2.1 2.3-.5 4.6-.8 7-.9 2.4-.1 4.7 0 7 .3z"/></svg>`,
-    docker: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><path fill="#2496ED" d="M124.8 52.1c-4.3-2.5-10.1-3.3-15.6-2-1.5-5.6-5.2-10.5-10.4-13.8l-2.1-1.2-1.3 2c-2.6 3.9-3.3 10.5-1 15.4-1.5.8-3.1 2-4.4 2.9-3 2-5.8 3.8-11.7 3.8H1.1l-.3 1.5c-1 6.4-.9 26.5 12.1 41.9 4.8 5.8 11 10.3 18.4 13.1C39.2 119.5 49.2 121 61 121c27.2 0 47-12.3 57.2-34.7 6.3.1 19.8 0 26.7-12.4.2-.3.7-1.1.8-1.4l.4-1-1.9-1.1-19.4-18.3zm0 0"/><path fill="#fff" d="M48.4 44.1H37.8v10.4h10.6V44.1zm0-14.4H37.8v10.4h10.6V29.7zm14.3 14.4H52.1v10.4h10.6V44.1zm0-14.4H52.1v10.4h10.6V29.7zm0-14.5H52.1v10.4h10.6V15.2zm14.3 28.9H66.4v10.4H77V44.1zm0-14.4H66.4v10.4H77V29.7zm14.4 14.4H80.7v10.4h10.7V44.1zm0-14.4H80.7v10.4h10.7V29.7zm0 0"/></svg>`,
-    linux: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><path d="M62.8 12.5c-9.6.8-17.2 12.8-18.1 20.1-1 8 .8 12.5 2.4 15.3.8 1.5 1.7 2.5 2.3 3.2-.6 3.7-1.6 10.8-.6 15.9-4.1 2.5-11.9 7.9-12.8 14.8-.9 7.3 1.7 12.5 4.5 15.8 2.8 3.3 5.5 4.1 7.5 5.1 2.1 1 2.3 2.5 2.3 4.1 0 1.5.2 12.4 1.7 17.5 1.3 4.6 4.4 6.6 7 6.6 3.1 0 6.2-2.9 7.2-6.2 1.7-5.2 1.8-17.1 1.8-17.1s.9-3.2 2.8-3.6c1.9-.4 3.9.3 6.3.4 2.3.1 6.2.4 9.9-2.3 3.7-2.7 5.4-5.5 6.4-9.7 1-4.3 2.2-6.9 5.7-10.1s4.2-7.2 3.7-10.8c-.4-2.7-2-5.3-4.3-7.2-2.3-1.9-5-3-7.1-3.6.1-1.8.2-4.2-.1-6.7-.3-2.5-.8-5.5-2.1-8.3-.2-.5-.5-.9-.7-1.4.2-2.9-.2-7-.8-10.4-.6-3.6-1.7-6.4-4.2-8.1-2.1-1.5-5.1-2-8.3-2.2-1.4-.1-2.6-.1-3.9-.1-.5 0-1 0-1.5.1-1.7.1-3.4.3-5 .6-1.6.3-3.1.7-4.4 1.2z" fill="#FFD133"/><path d="M62.7 16.3c-8.1.7-14.8 11-15.7 17.6-.8 6.6.5 10.8 1.9 13.3.7 1.3 1.5 2.2 2.1 2.9-.5 3.2-1.4 9.3-.5 13.8-3.6 2.2-10.3 6.8-11.2 12.8-.7 6.2 1.5 10.8 3.9 13.7 2.4 2.9 4.8 3.6 6.6 4.5 1.8.9 2 2.2 2 3.6 0 1.3.2 10.8 1.5 15.2 1.2 4 3.8 5.7 6.1 5.7 2.7 0 5.4-2.5 6.3-5.4 1.5-4.6 1.6-14.8 1.6-14.8s.8-2.8 2.5-3.2c1.7-.4 3.4.2 5.5.3 2 .1 5.4.3 8.6-2 3.2-2.3 4.7-4.8 5.6-8.4.9-3.7 1.9-6 4.9-8.7 3.1-2.8 3.7-6.3 3.2-9.4-.4-2.4-1.7-4.6-3.7-6.3-2-1.7-4.4-2.6-6.2-3.1.1-1.6.2-3.6-.1-5.8-.3-2.2-.7-4.8-1.8-7.2-.2-.4-.4-.8-.6-1.2.2-2.5-.1-6.1-.7-9-.5-3.2-1.5-5.5-3.6-7-1.8-1.3-4.4-1.7-7.2-1.9-1.2-.1-2.3-.1-3.4-.1-.4 0-.9 0-1.3.1-1.5.1-2.9.2-4.3.5-1.4.3-2.7.6-3.8 1z" fill="#FFD133"/><path d="M75.2 62.2c0 .6-1.4.8-2.3 1.1-1.4.5-3.7.6-4 .6-.3 0-.4-.1-.2-.5.2-.4 1.7-1.7 3.4-1.8 1.7-.1 3.1.6 3.1.6zm-17.5-.1c0 .6 1.4.8 2.3 1.1 1.4.5 3.7.6 4 .6.3 0 .4-.1.2-.5-.2-.4-1.7-1.7-3.4-1.8-1.7-.1-3.1.6-3.1.6z" fill="#333"/><ellipse cx="66.4" cy="70.3" rx="14.7" ry="8.4" fill="#FFD133"/><path d="M66.4 62c-8.1 0-14.7 3.7-14.7 8.4s6.6 8.4 14.7 8.4 14.7-3.7 14.7-8.4-6.6-8.4-14.7-8.4zm0 13.5c-6.4 0-11.5-2.3-11.5-5.1s5.1-5.1 11.5-5.1 11.5 2.3 11.5 5.1-5.1 5.1-11.5 5.1z" fill="#2E2E2E"/><circle cx="58.5" cy="52.3" r="5.4" fill="#2E2E2E"/><circle cx="74.4" cy="52.3" r="5.4" fill="#2E2E2E"/><circle cx="58.5" cy="52.3" r="2.7" fill="#fff"/><circle cx="74.4" cy="52.3" r="2.7" fill="#fff"/><circle cx="59.5" cy="51.3" r="1.3" fill="#2E2E2E"/><circle cx="75.4" cy="51.3" r="1.3" fill="#2E2E2E"/></svg>`,
-    snowflake: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><path fill="#29B5E8" d="M106.6 75l-14.4-8.4V50.2l14.4-8.3 3 5.2-11.4 6.6v12.4l11.4 6.6zm-85.2 0-3-5.2 11.4-6.6V50.8L18.4 44.2l3-5.2 14.4 8.3v16.4zm72.4-52.5-14.4 8.3L65 22.5v-13.2h-6v13.2L44.6 30.8 30.2 22.5l-3 5.2 14.4 8.3v16.4h6V35.2l14.4 8.3 14.4-8.3 6 3.5V25l-6-3.5 14.4-8.3zm-14.4 83.3L65 97.5 50.6 105.8V119h-6v-13.2l-14.4-8.3 3-5.2 14.4 8.3 14.4-8.3 14.4 8.3 14.4-8.3 3 5.2-14.4 8.3V119h-6v-13.2zm0-26.7-14.4-8.3L50.6 79.2l-14.4 8.3-3-5.2 14.4-8.3V57.6h6v16.4l14.4 8.3 14.4-8.3v-16.4h6V74l14.4 8.3z"/></svg>`,
-    oracle: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><path fill="#F80000" d="M64 26C40.8 26 22 44.8 22 68s18.8 42 42 42 42-18.8 42-42S87.2 26 64 26zm0 70c-15.5 0-28-12.5-28-28s12.5-28 28-28 28 12.5 28 28-12.5 28-28 28z"/></svg>`,
-    aws: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><path fill="#F90" d="M39.5 74.2c0 1.5.2 2.7.5 3.6s.8 1.9 1.5 2.9c.3.4.4.8.4 1.2 0 .5-.3 1-.9 1.5l-3 2c-.4.3-.8.4-1.2.4-.5 0-1-.2-1.5-.7-.7-.7-1.3-1.5-1.8-2.3-.5-.8-.9-1.7-1.4-2.9-3.5 4.1-7.9 6.2-13.2 6.2-3.8 0-6.8-1.1-9-3.2s-3.3-5-3.3-8.5c0-3.8 1.3-6.8 4-9.2s6.3-3.5 10.8-3.5c1.5 0 3 .1 4.6.4s3.2.6 4.9 1.1v-3.1c0-3.2-.7-5.5-2-6.9-1.4-1.4-3.7-2.1-7-2.1-1.5 0-3 .2-4.6.5-1.5.4-3 .8-4.4 1.4-.7.3-1.1.4-1.4.5-.3.1-.5.1-.6.1-.6 0-.8-.4-.8-1.2v-1.9c0-.6.1-1 .3-1.3.2-.3.6-.6 1.1-.9 1.5-.8 3.2-1.4 5.3-1.9s4.3-.7 6.7-.7c5.1 0 8.8 1.2 11.2 3.5 2.4 2.3 3.5 5.8 3.5 10.4v13.7zm-18.3 6.8c1.5 0 3-.3 4.6-.8 1.6-.5 3.1-1.5 4.3-2.8.7-.9 1.2-1.8 1.5-2.9.3-1.1.5-2.3.5-3.8v-1.8c-1.2-.3-2.5-.6-3.9-.7-1.4-.2-2.7-.3-4-.3-2.9 0-5 .6-6.4 1.7-1.4 1.1-2.1 2.7-2.1 4.8 0 1.9.5 3.4 1.5 4.3 1 1 2.3 1.5 4 1.5zm34.5 4.6c-.7 0-1.1-.1-1.4-.4-.3-.2-.6-.8-.8-1.5L44.2 51.5c-.2-.8-.3-1.3-.3-1.5 0-.6.3-.9.9-.9h3.6c.7 0 1.1.1 1.4.4.3.2.6.8.7 1.5l7.9 31.1 7.3-31.1c.2-.8.4-1.3.7-1.5.3-.2.8-.4 1.4-.4h3c.7 0 1.1.1 1.4.4.3.2.6.8.7 1.5l7.4 31.5 8.2-31.5c.2-.8.4-1.3.7-1.5.3-.2.8-.4 1.4-.4h3.4c.6 0 .9.3.9.9 0 .2 0 .4-.1.7-.1.3-.2.6-.4 1.1L83 83.7c-.2.8-.5 1.3-.8 1.5-.3.2-.8.4-1.4.4H77c-.7 0-1.1-.1-1.4-.4-.3-.2-.6-.8-.7-1.5l-7.3-30.5-7.3 30.5c-.2.8-.4 1.3-.7 1.5-.3.2-.8.4-1.4.4h-3.5zm44.6.9c-2.2 0-4.4-.2-6.5-.7-2.1-.5-3.7-1-4.8-1.7-.7-.4-1.1-.8-1.3-1.2-.2-.4-.3-.8-.3-1.3V80c0-.8.3-1.2.9-1.2.2 0 .5.1.8.2.3.1.6.3 1 .4.8.4 1.8.7 3 1 1.2.3 2.5.4 3.8.4 2 0 3.6-.4 4.7-1.1 1.1-.7 1.7-1.8 1.7-3.2 0-.9-.3-1.7-1-2.4-.6-.6-1.8-1.2-3.5-1.8l-5-1.6c-2.5-.8-4.4-1.9-5.5-3.5-1.1-1.5-1.7-3.2-1.7-5 0-1.4.3-2.7 1-3.8s1.5-2.1 2.5-2.9c1.1-.8 2.3-1.5 3.7-1.9 1.4-.4 2.9-.6 4.5-.6.8 0 1.6.1 2.4.2.8.1 1.5.3 2.2.5.7.2 1.3.4 1.9.6.6.2 1.1.5 1.4.7.5.3.8.6 1 .9.2.3.3.7.3 1.2v1.8c0 .8-.3 1.2-.9 1.2-.3 0-.8-.1-1.5-.4-2.3-1-4.8-1.5-7.5-1.5-1.8 0-3.2.3-4.2 1s-1.5 1.7-1.5 3c0 1 .3 1.8 1 2.4.7.7 2 1.3 3.9 1.9l4.9 1.6c2.5.8 4.3 1.9 5.4 3.4s1.6 3.1 1.6 4.9c0 1.5-.3 2.8-1 4s-1.5 2.2-2.7 3c-1.1.8-2.5 1.5-4 1.9-1.7.5-3.4.7-5.2.7z"/><path fill="#F90" d="M110.8 96.9c-13 9.6-31.9 14.7-48.2 14.7-22.8 0-43.3-8.4-58.8-22.4-1.2-1.1-.1-2.6 1.3-1.7 16.8 9.7 37.4 15.5 58.8 15.5 14.4 0 30.3-3 44.8-9.2 2.2-1.1 4 1.4 2.1 3.1z"/><path fill="#F90" d="M116.1 90.9c-1.7-2.2-11.2-1-15.5-.5-1.3.2-1.5-1-.3-1.8 7.6-5.3 20-3.8 21.5-2 1.5 1.8-.4 14.3-7.5 20.2-1.1.9-2.1.4-1.6-1 1.6-3.8 5.1-12.7 3.4-14.9z"/></svg>`,
-    dbt: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><path fill="#FF694A" d="M114.4 13.6L63.4 2.3 12.4 13.6 2 64l11 50.4 50.4 11.3 51-11.3L125.7 64zm-51 89.5L21.6 81.5V46.4l41.8-21.6 41.8 21.6v35.1z"/><path fill="#fff" d="M63.4 35.1L30.8 51.8v24.3l32.6 16.7 32.6-16.7V51.8z"/></svg>`,
-    powerbi: `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5 5h3v14H5zm4.5-3h3v17h-3zm4.5 5h3v12h-3z" fill="#F2C811"/></svg>`,
-  };
-
-  /* For skills without a custom SVG, render bold text on the gem */
-  const TEXT_ONLY = new Set(['SQL','T-SQL','PL/SQL','DAX','SF-SQL','Qlik','Zoho','Superset','MSSQL','λ','EC2','RDS','ADF','ETL','DWH','D-M','Q-Opt','Stats','Mining','Pred.','Churn','AI']);
-
+  /* ── skill data ── */
   const CATEGORIES = [
-    {
-      icon: '⌨️', title: 'Scripting',
-      skills: [
-        { name: 'Python',        svg: SVG.python },
-        { name: 'SQL',           text: 'SQL' },
-        { name: 'T-SQL',         text: 'T-SQL' },
-        { name: 'PL/SQL',        text: 'PL/SQL' },
-        { name: 'DAX',           text: 'DAX' },
-        { name: 'Snowflake SQL', text: 'SF-SQL' },
-        { name: 'HTML / CSS',    svg: SVG.html5 },
-      ]
-    },
-    {
-      icon: '📊', title: 'Visualization',
-      skills: [
-        { name: 'Power BI',       svg: SVG.powerbi },
-        { name: 'Qlik Sense',     text: 'Qlik' },
-        { name: 'Tableau',        text: 'Tableau' },
-        { name: 'Zoho Analytics', text: 'Zoho' },
-        { name: 'Superset',       text: 'Superset' },
-      ]
-    },
-    {
-      icon: '🗄️', title: 'Databases',
-      skills: [
-        { name: 'PostgreSQL',    svg: SVG.postgresql },
-        { name: 'MS SQL Server', text: 'MSSQL' },
-        { name: 'Oracle',        svg: SVG.oracle },
-        { name: 'MySQL',         svg: SVG.mysql },
-        { name: 'Snowflake',     svg: SVG.snowflake },
-      ]
-    },
-    {
-      icon: '☁️', title: 'Cloud & Tools',
-      skills: [
-        { name: 'AWS',    svg: SVG.aws },
-        { name: 'Lambda', text: 'λ' },
-        { name: 'EC2',    text: 'EC2' },
-        { name: 'RDS',    text: 'RDS' },
-        { name: 'Linux',  svg: SVG.linux },
-        { name: 'ADF',    text: 'ADF' },
-        { name: 'dbt',    svg: SVG.dbt },
-        { name: 'Docker', svg: SVG.docker },
-      ]
-    },
-    {
-      icon: '🔁', title: 'Data Engineering',
-      skills: [
-        { name: 'ETL Pipelines',      text: 'ETL' },
-        { name: 'Data Warehousing',   text: 'DWH' },
-        { name: 'Data Modelling',     text: 'D-M' },
-        { name: 'Query Optimization', text: 'Q-Opt' },
-        { name: 'dbt',                svg: SVG.dbt },
-      ]
-    },
-    {
-      icon: '🧠', title: 'Analytics',
-      skills: [
-        { name: 'Statistical Analysis', text: 'Stats' },
-        { name: 'Data Mining',          text: 'Mining' },
-        { name: 'Predictive Analytics', text: 'Pred.' },
-        { name: 'Churn Modelling',      text: 'Churn' },
-        { name: 'AI Integration',       text: 'AI' },
-      ]
-    },
+    { icon:'⌨️', title:'Scripting', skills:[
+      { name:'Python',        logo:'python-shape.png' },
+      { name:'SQL',           logo:'sql-shape.png' },
+      { name:'T-SQL',         logo:'tsql-shape.png' },
+      { name:'PL/SQL',        logo:'plsql-shape.png' },
+      { name:'DAX',           logo:'dax-shape.png' },
+      { name:'HTML / CSS',    logo:'html-shape.png' },
+    ]},
+    { icon:'📊', title:'Visualization', skills:[
+      { name:'Power BI',       logo:'powerbi-shape.png' },
+      { name:'Qlik Sense',     logo:'qliksense-shape.png' },
+      { name:'Tableau',        logo:'tableau-shape.png' },
+      { name:'Zoho Analytics', logo:'zohoanalytics-shape.png' },
+      { name:'Superset',       logo:'apachesuperset-shape.png' },
+    ]},
+    { icon:'🗄️', title:'Databases', skills:[
+      { name:'PostgreSQL',    logo:'postgres-shape.png' },
+      { name:'MS SQL Server', logo:'mssqlserver-shape.png' },
+      { name:'Oracle',        logo:'oracle-shape.png' },
+      { name:'MySQL',         logo:'mysql-shape.png' },
+      { name:'Snowflake',     logo:'snowflake-shape.png' },
+    ]},
+    { icon:'☁️', title:'Cloud & Tools', skills:[
+      { name:'AWS',    logo:'aws-shape.png' },
+      { name:'Lambda', logo:'lambda-shape.png' },
+      { name:'EC2',    logo:'ec2-shape.png' },
+      { name:'RDS',    logo:'rds-shape.png' },
+      { name:'Linux',  logo:'linux-shape.png' },
+      { name:'ADF',    logo:'adf-shape.png' },
+      { name:'dbt',    logo:'dbt-shape.png' },
+      { name:'Docker', logo:'docker-shape.png' },
+    ]},
+    { icon:'🔁', title:'Data Engineering', skills:[
+      { name:'ETL Pipelines',      logo:'etl-shape.png' },
+      { name:'Data Warehousing',   logo:'datawarehousing-shape.png' },
+      { name:'Data Modelling',     logo:'datamodelling-shape.png' },
+      { name:'Query Optimization', logo:'queryoptimization-shape.png' },
+      { name:'dbt',                logo:'dbt-shape.png' },
+    ]},
+    { icon:'🧠', title:'Analytics', skills:[
+      { name:'Statistical Analysis', logo:'statisticalanalysis-shape.png' },
+      { name:'Data Mining',          logo:'datamining-shape.png' },
+      { name:'Predictive Analytics', logo:'predictiveanalysis-shape.png' },
+      { name:'Churn Modelling',      logo:'churnmodelling-shape.png' },
+      { name:'AI Integration',       logo:'aiintegration-shape.png' },
+    ]},
   ];
 
-  /* Stagger durations so gems don't all sync up */
-  const DURATIONS = [5.8, 6.4, 7.1, 5.2, 6.9, 7.6, 5.5, 6.2, 7.3, 6.7, 5.9, 7.0];
+  /* ── all logos are local PNGs in /assets/ — no CDN, no CORS ── */
+  /* Map each logo filename to its correct subfolder in the repo */
+  const ASSET_MAP = {
+    'python-shape.png':           'assets/Scripting/python-shape.png',
+    'sql-shape.png':              'assets/Scripting/sql-shape.png',
+    'tsql-shape.png':             'assets/Scripting/tsql-shape.png',
+    'plsql-shape.png':            'assets/Scripting/plsql-shape.png',
+    'dax-shape.png':              'assets/Scripting/dax-shape.png',
+    'html-shape.png':             'assets/Scripting/html-shape.png',
+    'powerbi-shape.png':          'assets/Visualization/powerbi-shape.png',
+    'qliksense-shape.png':        'assets/Visualization/qliksense-shape.png',
+    'tableau-shape.png':          'assets/Visualization/tableau-shape.png',
+    'zohoanalytics-shape.png':    'assets/Visualization/zohoanalytics-shape.png',
+    'apachesuperset-shape.png':   'assets/Visualization/apachesuperset-shape.png',
+    'postgres-shape.png':         'assets/Databases/postgres-shape.png',
+    'mssqlserver-shape.png':      'assets/Databases/mssqlserver-shape.png',
+    'oracle-shape.png':           'assets/Databases/oracle-shape.png',
+    'mysql-shape.png':            'assets/Databases/mysql-shape.png',
+    'snowflake-shape.png':        'assets/Databases/snowflake-shape.png',
+    'aws-shape.png':              'assets/Cloud & Tools/aws-shape.png',
+    'lambda-shape.png':           'assets/Cloud & Tools/lambda-shape.png',
+    'ec2-shape.png':              'assets/Cloud & Tools/ec2-shape.png',
+    'rds-shape.png':              'assets/Cloud & Tools/rds-shape.png',
+    'linux-shape.png':            'assets/Cloud & Tools/linus-shape.png',
+    'adf-shape.png':              'assets/Cloud & Tools/adf-shape.png',
+    'dbt-shape.png':              'assets/Cloud & Tools/dbt-shape.png',
+    'docker-shape.png':           'assets/Cloud & Tools/docker-shape.png',
+    'etl-shape.png':              'assets/Data Engineering/etl-shape.png',
+    'datawarehousing-shape.png':  'assets/Data Engineering/datawarehousing-shape.png',
+    'datamodelling-shape.png':    'assets/Data Engineering/datamodelling-shape.png',
+    'queryoptimization-shape.png':'assets/Data Engineering/queryoptimization-shape.png',
+    'statisticalanalysis-shape.png':'assets/Analytics/statisticalanalysis-shape.png',
+    'datamining-shape.png':       'assets/Analytics/datamining-shape.png',
+    'predictiveanalysis-shape.png':'assets/Analytics/predictiveanalysis-shape.png',
+    'churnmodelling-shape.png':   'assets/Analytics/churnmodelling-shape.png',
+    'aiintegration-shape.png':    'assets/Analytics/aiintegration-shape.png',
+  };
 
-  function buildGem(skill, idx) {
-    const dur = DURATIONS[idx % DURATIONS.length];
 
-    const item = document.createElement('div');
-    item.className = 'oct-item';
+  /* ── Image cache — preload all PNGs ── */
+  const imgCache = {};
+  CATEGORIES.forEach(cat => cat.skills.forEach(skill => {
+    if (imgCache[skill.logo]) return;
+    const img = new Image();
+    img.src = ASSET_MAP[skill.logo] || ('assets/' + skill.logo);
+    imgCache[skill.logo] = img;
+  }));
 
-    const scene = document.createElement('div');
-    scene.className = 'oct-scene';
-
-    const spinner = document.createElement('div');
-    spinner.className = 'oct-spinner';
-    spinner.style.animationDuration = dur + 's';
-    spinner.style.animationDelay = -(idx * (dur / DURATIONS.length)).toFixed(2) + 's';
-
-    const front = document.createElement('div');
-    front.className = 'oct-face oct-front';
-
-    /* Inline SVG or text label */
-    if (skill.svg) {
-      const wrap = document.createElement('div');
-      wrap.className = 'oct-logo';
-      wrap.innerHTML = skill.svg;
-      front.appendChild(wrap);
-    } else {
-      const t = document.createElement('div');
-      t.className = 'oct-text-logo';
-      t.textContent = skill.text;
-      front.appendChild(t);
-    }
-
-    const glint = document.createElement('div');
-    glint.className = 'oct-glint';
-
-    const back = document.createElement('div');
-    back.className = 'oct-face oct-back';
-
-    const rim = document.createElement('div');
-    rim.className = 'oct-rim';
-
-    spinner.appendChild(rim);
-    spinner.appendChild(back);
-    spinner.appendChild(front);
-    spinner.appendChild(glint);
-    scene.appendChild(spinner);
-
-    const label = document.createElement('div');
-    label.className = 'oct-label';
-    label.textContent = skill.name;
-
-    item.appendChild(scene);
-    item.appendChild(label);
-    return item;
-  }
-
+  /* ── Build DOM — one canvas per skill ── */
   const container = document.getElementById('skillCategories');
-  let globalIdx = 0;
+  const gemList   = [];
 
   CATEGORIES.forEach(cat => {
     const catDiv = document.createElement('div');
     catDiv.className = 'skill-category';
-    catDiv.innerHTML = `
-      <div class="cat-header">
-        <span class="cat-icon">${cat.icon}</span>
-        <span class="cat-title">${cat.title}</span>
-        <div class="cat-line"></div>
-      </div>`;
-
+    catDiv.innerHTML = `<div class="cat-header">
+      <span class="cat-icon">${cat.icon}</span>
+      <span class="cat-title">${cat.title}</span>
+      <div class="cat-line"></div>
+    </div>`;
     const grid = document.createElement('div');
     grid.className = 'oct-grid';
 
     cat.skills.forEach(skill => {
-      grid.appendChild(buildGem(skill, globalIdx++));
+      const item = document.createElement('div');
+      item.className = 'oct-item';
+
+      const canvas = document.createElement('canvas');
+      canvas.className = 'gem-canvas';
+      canvas.width  = 200;
+      canvas.height = 200;
+
+      const label = document.createElement('div');
+      label.className = 'oct-label';
+      label.textContent = skill.name;
+
+      item.appendChild(canvas);
+      item.appendChild(label);
+      grid.appendChild(item);
+
+      const gem = {
+        canvas,
+        logo: skill.logo,
+        hovered: false,
+        scale: 1,
+        targetScale: 1,
+        bobPhase: Math.random() * Math.PI * 2,
+      };
+      item.addEventListener('mouseenter', () => { gem.hovered = true;  gem.targetScale = 1.12; });
+      item.addEventListener('mouseleave', () => { gem.hovered = false; gem.targetScale = 1; });
+      gemList.push(gem);
     });
 
     catDiv.appendChild(grid);
     container.appendChild(catDiv);
   });
 
+  /* ── Animation loop — draw PNG with bob + scale on each canvas ── */
+  let last = 0;
+  function tick(ts) {
+    requestAnimationFrame(tick);
+    const dt = Math.min((ts - last) / 1000, 0.05);
+    last = ts;
+
+    gemList.forEach((gem, i) => {
+      gem.bobPhase += dt * (gem.hovered ? 3.5 : 1.2);
+      gem.scale += (gem.targetScale - gem.scale) * 0.1;
+
+      const img = imgCache[gem.logo];
+      if (!img || !img.complete || !img.naturalWidth) return;
+
+      const ctx  = gem.canvas.getContext('2d');
+      const size = 200;
+      const bob  = Math.sin(gem.bobPhase) * 4;
+      const s    = gem.scale;
+      const drawSize = size * s;
+      const offset   = (size - drawSize) / 2;
+
+      ctx.clearRect(0, 0, size, size);
+      ctx.save();
+      ctx.translate(size / 2, size / 2 + bob);
+      ctx.scale(s, s);
+      ctx.drawImage(img, -size / 2, -size / 2, size, size);
+      ctx.restore();
+    });
+  }
+  requestAnimationFrame(tick);
+
 })();
+
+
+
 
 /* ── THREE.JS GLOBAL PARTICLE BACKGROUND ── */
 (function() {
