@@ -726,6 +726,8 @@ document.addEventListener('mousemove', e => {
         scale: 1,
         targetScale: 1,
         bobPhase: Math.random() * Math.PI * 2,
+        rotY: Math.random() * Math.PI * 2,
+        rotSpeed: 0,
       };
       item.addEventListener('mouseenter', () => { gem.hovered = true;  gem.targetScale = 1.12; });
       item.addEventListener('mouseleave', () => { gem.hovered = false; gem.targetScale = 1; });
@@ -736,7 +738,13 @@ document.addEventListener('mousemove', e => {
     container.appendChild(catDiv);
   });
 
-  /* ── Animation loop — draw PNG with bob + scale on each canvas ── */
+  /* ── Per-gem rotation state ── */
+  gemList.forEach((gem, i) => {
+    gem.rotY      = Math.random() * Math.PI * 2; // staggered start angle
+    gem.rotSpeed  = 0.4 + (i % 7) * 0.06;       // slightly different speeds
+  });
+
+  /* ── Animation loop ── */
   let last = 0;
   function tick(ts) {
     requestAnimationFrame(tick);
@@ -744,24 +752,56 @@ document.addEventListener('mousemove', e => {
     last = ts;
 
     gemList.forEach((gem, i) => {
-      gem.bobPhase += dt * (gem.hovered ? 3.5 : 1.2);
-      gem.scale += (gem.targetScale - gem.scale) * 0.1;
+      /* update state */
+      gem.bobPhase += dt * 1.1;
+      gem.rotY     += dt * (gem.hovered ? gem.rotSpeed * 4 : gem.rotSpeed);
+      gem.scale    += (gem.targetScale - gem.scale) * 0.1;
 
       const img = imgCache[gem.logo];
       if (!img || !img.complete || !img.naturalWidth) return;
 
       const ctx  = gem.canvas.getContext('2d');
       const size = 200;
-      const bob  = Math.sin(gem.bobPhase) * 4;
-      const s    = gem.scale;
-      const drawSize = size * s;
-      const offset   = (size - drawSize) / 2;
+      const cx   = size / 2;
+      const cy   = size / 2;
+      const bob  = Math.sin(gem.bobPhase) * 5;
+
+      /* scaleX oscillates between -1 and 1 — this creates the Y-axis spin illusion */
+      const scaleX = Math.cos(gem.rotY);
+      const absX   = Math.abs(scaleX);
 
       ctx.clearRect(0, 0, size, size);
       ctx.save();
-      ctx.translate(size / 2, size / 2 + bob);
-      ctx.scale(s, s);
-      ctx.drawImage(img, -size / 2, -size / 2, size, size);
+
+      /* clip to circle — removes white corners from non-transparent PNGs */
+      ctx.beginPath();
+      ctx.arc(cx, cy + bob, cx * 0.88, 0, Math.PI * 2);
+      ctx.clip();
+
+      /* apply Y-axis rotation via horizontal scale + slight perspective squish */
+      ctx.translate(cx, cy + bob);
+      ctx.scale(scaleX * gem.scale, gem.scale * (0.92 + absX * 0.08));
+
+      /* darken the "side" faces as they turn away */
+      ctx.drawImage(img, -cx, -cy, size, size);
+
+      /* dark overlay on the away-facing side for depth illusion */
+      if (absX < 0.85) {
+        ctx.globalAlpha = (1 - absX) * 0.45;
+        ctx.fillStyle = '#050510';
+        ctx.fillRect(-cx, -cy, size, size);
+        ctx.globalAlpha = 1;
+      }
+
+      ctx.restore();
+
+      /* subtle edge highlight on the lit side */
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(cx, cy + bob, cx * 0.88, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(0,240,255,${0.08 + absX * 0.12})`;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
       ctx.restore();
     });
   }
