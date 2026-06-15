@@ -176,7 +176,7 @@ section { position: relative; z-index: 1; min-height: 100vh; display: flex; alig
 .oct-grid { display: flex; flex-wrap: wrap; gap: 1.8rem 2.2rem; }
 .oct-item  { display: flex; flex-direction: column; align-items: center; gap: 0.65rem; cursor: default; }
 .gem-canvas {
-  width: 80px; height: 80px;
+  width: 90px; height: 85px;
   display: block;
   transition: transform 0.3s, filter 0.3s;
 }
@@ -709,7 +709,7 @@ document.addEventListener('mousemove', e => {
       const canvas = document.createElement('canvas');
       canvas.className = 'gem-canvas';
       canvas.width  = 180;
-      canvas.height = 200;
+      canvas.height = 210;
 
       const label = document.createElement('div');
       label.className = 'oct-label';
