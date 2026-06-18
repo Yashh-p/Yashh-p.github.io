@@ -202,10 +202,10 @@ section { position: relative; z-index: 1; min-height: 100vh; display: flex; alig
 
 #education .inner { max-width: 900px; width: 100%; }
 .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-.edu-card { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 2rem; position: relative; overflow: hidden; transition: transform 0.3s, border-color 0.3s; display: flex; flex-direction: row; align-items: center; gap: 1.5rem; }
+.edu-card { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 2rem; position: relative; overflow: hidden; transition: transform 0.3s, border-color 0.3s; display: flex; flex-direction: row; align-items: center; gap: 2rem; }
 .edu-card:hover { transform: translateY(-4px); border-color: rgba(123,92,255,0.4); }
-.edu-logo-ring { width: 80px; height: 80px; border-radius: 50%; border: 1.5px solid var(--border); background: var(--bg); overflow: hidden; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
-.edu-logo-ring img { width: 90%; height: 90%; object-fit: contain; }
+.edu-logo-ring { width: 80px; height: 80px; border-radius: 50%; border: 1.5px solid var(--border); background: transparent; overflow: visible; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.edu-logo-ring img { width: 80px; height: 80px; object-fit: contain; border-radius: 50%; }
 .edu-card-details { display: flex; flex-direction: column; flex: 1; }
 .edu-year { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent2); margin-bottom: 0.6rem; }
 .edu-degree { font-family: var(--font-head); font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 0.4rem; line-height: 1.3; }
