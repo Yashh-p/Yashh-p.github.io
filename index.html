@@ -202,6 +202,8 @@ section { position: relative; z-index: 1; min-height: 100vh; display: flex; alig
 
 #education .inner { max-width: 900px; width: 100%; }
 .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.edu-logo-ring { width: 64px; height: 64px; border-radius: 50%; border: 1.5px solid var(--border); background: var(--bg); overflow: hidden; margin-bottom: 1rem; }
+.edu-logo-ring img { width: 100%; height: 100%; object-fit: contain; }
 .edu-card { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 2rem; position: relative; overflow: hidden; transition: transform 0.3s, border-color 0.3s; }
 .edu-card:hover { transform: translateY(-4px); border-color: rgba(123,92,255,0.4); }
 .edu-year { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent2); margin-bottom: 0.6rem; }
@@ -501,8 +503,8 @@ footer span { color: var(--accent3); }
   <div class="inner">
     <div class="section-header"><span class="section-tag">Education</span><h2 class="section-title">Academic <span>Background</span></h2></div>
     <div class="edu-grid">
-      <div class="edu-card"><div class="edu-year">2022 — 2024</div><div class="edu-degree">MBA — Information Technology &amp; Systems Management</div><div class="edu-school">NMIMS University</div><span class="edu-cgpa">CGPA: 7.2</span></div>
-      <div class="edu-card"><div class="edu-year">2016 — 2020</div><div class="edu-degree">B.Tech — Computer Science &amp; Engineering</div><div class="edu-school">SRMIST</div><span class="edu-cgpa">CGPA: 7.34</span></div>
+      <div class="edu-card"><div class="edu-logo-ring"><img src="assets/Academic Background/nmims.jpg" alt="NMIMS" /></div><div class="edu-year">2022 — 2024</div><div class="edu-degree">MBA — Information Technology &amp; Systems Management</div><div class="edu-school">NMIMS University</div><span class="edu-cgpa">CGPA: 7.2</span></div>
+      <div class="edu-card"><div class="edu-logo-ring"><img src="assets/Academic Background/srm.png" alt="SRMIST" /></div><div class="edu-year">2016 — 2020</div><div class="edu-degree">B.Tech — Computer Science &amp; Engineering</div><div class="edu-school">SRMIST</div><span class="edu-cgpa">CGPA: 7.34</span></div>
     </div>
     <div class="cert-card"><div class="cert-icon">🏅</div><div><div class="cert-name">MS SQL Developer — Intellipaat</div><div class="cert-id">Credential ID: 316792853197340</div></div></div>
   </div>
